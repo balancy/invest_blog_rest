@@ -7,6 +7,7 @@ class Author(models.Model):
         get_user_model(),
         on_delete=models.PROTECT,
         null=False,
+        verbose_name="Пользователь",
     )
 
     status = models.CharField(
@@ -14,29 +15,68 @@ class Author(models.Model):
         null=False,
         default="",
         blank=True,
+        verbose_name="Статус",
     )
 
-    bio = models.TextField(null=False, default="", blank=True)
+    bio = models.TextField(
+        null=False,
+        default="",
+        blank=True,
+        verbose_name="Биография",
+    )
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.user}>"
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=150, null=False, default="", blank=False)
+    title = models.CharField(
+        max_length=150,
+        null=False,
+        default="",
+        blank=False,
+        verbose_name="Название",
+    )
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
 
 
 class Article(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.PROTECT,
+        verbose_name="Автор",
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Категория",
+    )
 
-    title = models.CharField(max_length=150, null=False, default="", blank=False)
-    text = models.TextField(null=False, default="", blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    published_at = models.DateTimeField(null=True, blank=True)
+    title = models.CharField(
+        max_length=150,
+        null=False,
+        default="",
+        blank=False,
+        verbose_name="Заголовок",
+    )
+    text = models.TextField(
+        null=False,
+        default="",
+        blank=True,
+        verbose_name="Текст статьи",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания",
+    )
+    published_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Дата публикации",
+    )
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}> by {self.author}"

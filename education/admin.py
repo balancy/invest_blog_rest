@@ -1,5 +1,5 @@
 from django.contrib import admin
-from education.models import Article, Author
+from education.models import Article, Author, Category
 
 
 @admin.register(Author)
@@ -9,4 +9,10 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("id", "title", "author", "category", "created_at",
+                    "published_at")
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = "id", "title"
