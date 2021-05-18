@@ -9,5 +9,6 @@ def articles_list(request: HttpRequest):
 
     context = {
         "articles": articles,
+        "title": "Список статей",
     }
     return render(request, "education/articles_list.html", context=context)

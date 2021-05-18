@@ -25,6 +25,10 @@ class Author(models.Model):
         verbose_name="Биография",
     )
 
+    class Meta:
+        verbose_name = "Автор"
+        verbose_name_plural = "Авторы"
+
     def __str__(self):
         return f"{self.__class__.__name__} <{self.user}>"
 
@@ -37,6 +41,10 @@ class Category(models.Model):
         blank=False,
         verbose_name="Название",
     )
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
@@ -53,6 +61,11 @@ class Article(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         verbose_name="Категория",
+    )
+    tags = models.ManyToManyField(
+        "Tag",
+        verbose_name="Тэг",
+        related_name="articles",
     )
 
     title = models.CharField(
@@ -78,15 +91,24 @@ class Article(models.Model):
         verbose_name="Дата публикации",
     )
 
+    class Meta:
+        verbose_name = "Статья"
+        verbose_name_plural = "Статьи"
+
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}> by {self.author}"
 
 
+class TagQuerySet(models.QuerySet):
+    def popular(self):
+        return self.annotate(
+            articles_count=models.Count('articles')
+        ).order_by('-article_count')
+
+
 class Tag(models.Model):
-    article = models.ManyToManyField(
-        Article,
-        verbose_name="Статья",
-    )
+    objects = TagQuerySet.as_manager()
+
     title = models.CharField(
         max_length=150,
         null=False,
@@ -94,6 +116,10 @@ class Tag(models.Model):
         blank=False,
         verbose_name="Название",
     )
+
+    class Meta:
+        verbose_name = "Тег"
+        verbose_name_plural = "Теги"
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
