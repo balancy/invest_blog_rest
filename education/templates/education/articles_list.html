@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Authors list</title>
+    <title>Articles list</title>
 </head>
 <body>
     <ul>
-        {% for author in authors %}
-            <li>author</li>
+        {% for article in articles %}
+            <li>article</li>
         {% empty %}
-            <p>no authors</p>
+            <p>no articles</p>
         {% endfor %}
     </ul>
 </body>

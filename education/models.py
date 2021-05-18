@@ -20,3 +20,15 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.user}>"
+
+
+class Article(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.PROTECT)
+
+    title = models.CharField(max_length=150, null=False, default="", blank=False)
+    text = models.TextField(null=False, default="", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.title}> by {self.author}"

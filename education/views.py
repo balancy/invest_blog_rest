@@ -5,9 +5,9 @@ from education.models import Author
 
 
 def articles_list(request: HttpRequest):
-    authors = Author.objects.all()
+    articles = Article.objects.all()
 
     context = {
-        "authors": authors,
+        "article": articles,
     }
-    return render(request, "education/authors_list.html", context=context)
+    return render(request, "education/articles_list.html", context=context)
