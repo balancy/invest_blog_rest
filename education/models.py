@@ -46,6 +46,9 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
+    def get_articles(self):
+        return Article.objects.filter(category=self)
+
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
 
@@ -61,6 +64,7 @@ class Article(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         verbose_name="Категория",
+        related_name="articles",
     )
     tags = models.ManyToManyField(
         "Tag",
@@ -103,12 +107,10 @@ class TagQuerySet(models.QuerySet):
     def popular(self):
         return self.annotate(
             articles_count=models.Count('articles')
-        ).order_by('-article_count')
+        ).order_by('-articles_count')
 
 
 class Tag(models.Model):
-    objects = TagQuerySet.as_manager()
-
     title = models.CharField(
         max_length=150,
         null=False,
@@ -116,6 +118,8 @@ class Tag(models.Model):
         blank=False,
         verbose_name="Название",
     )
+
+    objects = TagQuerySet.as_manager()
 
     class Meta:
         verbose_name = "Тег"

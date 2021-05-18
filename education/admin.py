@@ -11,6 +11,7 @@ class AuthorAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "author", "category", "created_at",
                     "published_at")
+    raw_id_fields = "author", "category", "tags"
 
 
 @admin.register(Category)
