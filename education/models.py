@@ -22,8 +22,16 @@ class Author(models.Model):
         return f"{self.__class__.__name__} <{self.user}>"
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=150, null=False, default="", blank=False)
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.title}>"
+
+
 class Article(models.Model):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=150, null=False, default="", blank=False)
     text = models.TextField(null=False, default="", blank=True)
@@ -32,3 +40,4 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}> by {self.author}"
+
