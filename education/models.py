@@ -81,3 +81,19 @@ class Article(models.Model):
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}> by {self.author}"
 
+
+class Tag(models.Model):
+    article = models.ManyToManyField(
+        Article,
+        verbose_name="Статья",
+    )
+    title = models.CharField(
+        max_length=150,
+        null=False,
+        default="",
+        blank=False,
+        verbose_name="Название",
+    )
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.title}>"

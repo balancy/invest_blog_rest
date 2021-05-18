@@ -1,5 +1,5 @@
 from django.contrib import admin
-from education.models import Article, Author, Category
+from education.models import Article, Author, Category, Tag
 
 
 @admin.register(Author)
@@ -15,4 +15,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = "id", "title"
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     list_display = "id", "title"
