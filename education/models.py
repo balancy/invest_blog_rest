@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Author(models.Model):
@@ -79,7 +80,7 @@ class Article(models.Model):
         blank=False,
         verbose_name="Заголовок",
     )
-    text = models.TextField(
+    text = HTMLField(
         null=False,
         default="",
         blank=True,
