@@ -2,6 +2,12 @@
 
 Web-app representing an investment blog.
 
+App consists of 5 models: Author, Article, Category, Comment, Tag. Users of
+the app can be authors of articles, and they can also write comments. Every article 
+belongs to a certain category. Every article could have several tags. The main page 
+show the list of all posts divided by categories in its main section. In the side section
+there is a list of all tags with the count of articles that have them linked.
+
 ## Install
 
 Python3 and Git should be already installed. 
