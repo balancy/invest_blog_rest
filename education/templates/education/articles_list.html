@@ -23,11 +23,11 @@
                             <h5><a href="#">{{ article.title }}</a></h5>
                             <small>
                                 {% for tag in article.tags %}
-                                    <a href="#">{{ tag.title }}</a>,
+                                    <a href="#">{{ tag.title }}</a>{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </small>
                             <br>
-                            <small>Написана <a href="#">{{ article.author }}</a>, опубликована {{ article.published_at}}</small>
+                            <small>Написана <a href="#">{{ article.author.user.username }}</a>, опубликована {{ article.published_at}}</small>
                             <p>{{ article.text }}</p>
                         {% endfor %}
                     {% endfor %}

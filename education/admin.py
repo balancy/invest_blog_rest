@@ -1,5 +1,5 @@
 from django.contrib import admin
-from education.models import Article, Author, Category, Tag
+from education.models import Article, Author, Category, Tag, Comment
 
 
 @admin.register(Author)
@@ -22,3 +22,9 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = "id", "title"
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = "id", "author", "article", "published_at"
+    raw_id_fields = "author", "article"

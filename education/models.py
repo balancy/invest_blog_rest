@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -128,3 +129,34 @@ class Tag(models.Model):
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        verbose_name="Автор",
+    )
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        verbose_name="Статья",
+    )
+    text = models.TextField(
+        null=False,
+        default="",
+        blank=True,
+        verbose_name="Текст",
+    )
+    published_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата публикации",
+    )
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+
+    def __str__(self):
+        return (f"{self.__class__.__name__} <{self.text}> от <{self.author}> "
+                f"на <{self.article}>")
