@@ -2,7 +2,7 @@ def serialize_tag_with_count(tag):
     return {
         "title": tag.title,
         "articles_count":
-            tag.articles_count if hasattr(tag, "articles_count") else 0,
+            getattr(tag, "articles_count", 0),
     }
 
 
