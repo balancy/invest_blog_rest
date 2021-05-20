@@ -8,20 +8,17 @@ class Author(models.Model):
     user = models.OneToOneField(
         get_user_model(),
         on_delete=models.PROTECT,
-        null=False,
         verbose_name="Пользователь",
     )
 
     status = models.CharField(
         max_length=200,
-        null=False,
         default="",
         blank=True,
         verbose_name="Статус",
     )
 
     bio = models.TextField(
-        null=False,
         default="",
         blank=True,
         verbose_name="Биография",
@@ -38,9 +35,7 @@ class Author(models.Model):
 class Category(models.Model):
     title = models.CharField(
         max_length=150,
-        null=False,
         default="",
-        blank=False,
         verbose_name="Название",
     )
 
@@ -76,13 +71,10 @@ class Article(models.Model):
 
     title = models.CharField(
         max_length=150,
-        null=False,
         default="",
-        blank=False,
         verbose_name="Заголовок",
     )
     text = HTMLField(
-        null=False,
         default="",
         blank=True,
         verbose_name="Текст статьи",
@@ -115,9 +107,7 @@ class TagQuerySet(models.QuerySet):
 class Tag(models.Model):
     title = models.CharField(
         max_length=150,
-        null=False,
         default="",
-        blank=False,
         verbose_name="Название",
     )
 
@@ -143,7 +133,6 @@ class Comment(models.Model):
         verbose_name="Статья",
     )
     text = models.TextField(
-        null=False,
         default="",
         blank=True,
         verbose_name="Текст",
