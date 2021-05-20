@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 
-from education.models import Category, Tag, Article
+from education.models import Article, Category, Tag
 
 
 def serialize_tag_with_count(tag):

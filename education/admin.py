@@ -1,5 +1,6 @@
 from django.contrib import admin
-from education.models import Article, Author, Category, Tag, Comment
+
+from education.models import Article, Author, Category, Comment, Tag
 
 
 @admin.register(Author)
