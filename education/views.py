@@ -33,10 +33,7 @@ def serialize_category(category):
         "title": category.title,
         "articles": [
             serialize_article(article) for article
-            in Article.objects.filter(
-                category=category,
-                published_at__isnull=False,
-            )
+            in category.articles.filter(published_at__isnull=False)
         ],
     }
 

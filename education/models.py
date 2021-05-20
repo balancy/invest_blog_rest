@@ -43,9 +43,6 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
-    def get_articles(self):
-        return Article.objects.filter(category=self)
-
     def __str__(self):
         return f"{self.__class__.__name__} <{self.title}>"
 
