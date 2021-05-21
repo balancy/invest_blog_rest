@@ -75,6 +75,39 @@ class Category(models.Model):
         return f"{self.__class__.__name__} <{self.title}>"
 
 
+class Course(models.Model):
+    responsible = models.OneToOneField(
+        Mentor,
+        on_delete=models.PROTECT,
+        verbose_name="Отвественный",
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Категория",
+        related_name="courses",
+    )
+
+    title = models.CharField(
+        max_length=150,
+        default="",
+        verbose_name="Название",
+    )
+    description = HTMLField(
+        default="",
+        blank=True,
+        verbose_name="Описание курса",
+    )
+
+    class Meta:
+        verbose_name = "Курс"
+        verbose_name_plural = "Курс"
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.title}>"
+
+
 class Article(models.Model):
     author = models.ForeignKey(
         Mentor,
