@@ -108,58 +108,49 @@ class Course(models.Model):
         return f"{self.__class__.__name__} <{self.title}>"
 
 
-class Article(models.Model):
-    author = models.ForeignKey(
+class Lesson(models.Model):
+    mentor = models.OneToOneField(
         Mentor,
         on_delete=models.PROTECT,
-        verbose_name="Автор",
+        verbose_name="Преподаватель",
     )
-    category = models.ForeignKey(
-        Category,
+    course = models.ForeignKey(
+        Course,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name="Категория",
-        related_name="articles",
+        verbose_name="Курс",
+        related_name="lessons",
     )
     tags = models.ManyToManyField(
         "Tag",
         verbose_name="Тэг",
-        related_name="articles",
+        related_name="lessons",
     )
 
     title = models.CharField(
         max_length=150,
         default="",
-        verbose_name="Заголовок",
+        verbose_name="Название",
     )
     text = HTMLField(
         default="",
         blank=True,
-        verbose_name="Текст статьи",
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Дата создания",
-    )
-    published_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name="Дата публикации",
+        verbose_name="Текст занятия",
     )
 
     class Meta:
-        verbose_name = "Статья"
-        verbose_name_plural = "Статьи"
+        verbose_name = "Занятие"
+        verbose_name_plural = "Занятия"
 
     def __str__(self):
-        return f"{self.__class__.__name__} <{self.title}> by {self.author}"
+        return f"{self.__class__.__name__} <{self.title}>"
 
 
 class TagQuerySet(models.QuerySet):
     def popular(self):
         return self.annotate(
-            articles_count=models.Count('articles')
-        ).order_by('-articles_count')
+            lessons_count=models.Count('lessons')
+        ).order_by('-lessons_count')
 
 
 class Tag(models.Model):
@@ -179,31 +170,29 @@ class Tag(models.Model):
         return f"{self.__class__.__name__} <{self.title}>"
 
 
-class Comment(models.Model):
-    author = models.ForeignKey(
-        User,
-        on_delete=models.PROTECT,
-        verbose_name="Автор",
-    )
-    article = models.ForeignKey(
-        Article,
+class Schedule(models.Model):
+    lesson = models.ForeignKey(
+        Lesson,
         on_delete=models.CASCADE,
-        verbose_name="Статья",
+        verbose_name="Занятие",
     )
-    text = models.TextField(
-        default="",
-        blank=True,
-        verbose_name="Текст",
+
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        verbose_name="Студент",
     )
-    published_at = models.DateTimeField(
+
+    lesson_time = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Дата публикации",
+        verbose_name="Дата занятия",
     )
 
     class Meta:
-        verbose_name = "Комментарий"
-        verbose_name_plural = "Комментарии"
+        verbose_name = "Расписание"
+        verbose_name_plural = "Расписание"
 
     def __str__(self):
-        return (f"{self.__class__.__name__} <{self.text}> от <{self.author}> "
-                f"на <{self.article}>")
+        return (f"{self.__class__.__name__} <{self.lesson}> <{self.student}> "
+                f"at {self.lesson_time}")
+
