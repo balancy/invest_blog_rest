@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
 from tinymce.models import HTMLField
@@ -76,10 +75,11 @@ class Category(models.Model):
 
 
 class Course(models.Model):
-    responsible = models.OneToOneField(
+    responsible = models.ForeignKey(
         Mentor,
         on_delete=models.PROTECT,
         verbose_name="Отвественный",
+        related_name="courses",
     )
     category = models.ForeignKey(
         Category,
@@ -109,10 +109,11 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    mentor = models.OneToOneField(
+    mentor = models.ForeignKey(
         Mentor,
         on_delete=models.PROTECT,
         verbose_name="Преподаватель",
+        related_name="lessons",
     )
     course = models.ForeignKey(
         Course,
@@ -175,12 +176,14 @@ class Schedule(models.Model):
         Lesson,
         on_delete=models.CASCADE,
         verbose_name="Занятие",
+        related_name="schedules",
     )
 
     student = models.ForeignKey(
         Student,
         on_delete=models.CASCADE,
         verbose_name="Студент",
+        related_name="schedules",
     )
 
     lesson_time = models.DateTimeField(
