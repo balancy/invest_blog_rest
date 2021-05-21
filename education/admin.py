@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from education.models import Article, Author, Category, Comment, Tag
+from education.models import Article, Mentor, Category, Comment, Tag
 
 
-@admin.register(Author)
+@admin.register(Mentor)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = "id", "user", "status"
 

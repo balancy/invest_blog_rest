@@ -4,9 +4,9 @@ from django.db import models
 from tinymce.models import HTMLField
 
 
-class Author(models.Model):
+class Mentor(models.Model):
     user = models.OneToOneField(
-        get_user_model(),
+        User,
         on_delete=models.PROTECT,
         verbose_name="Пользователь",
     )
@@ -25,8 +25,8 @@ class Author(models.Model):
     )
 
     class Meta:
-        verbose_name = "Автор"
-        verbose_name_plural = "Авторы"
+        verbose_name = "Преподаватель"
+        verbose_name_plural = "Преподаватели"
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.user}>"
@@ -49,7 +49,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     author = models.ForeignKey(
-        Author,
+        Mentor,
         on_delete=models.PROTECT,
         verbose_name="Автор",
     )
