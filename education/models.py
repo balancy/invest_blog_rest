@@ -187,7 +187,6 @@ class Schedule(models.Model):
     )
 
     lesson_time = models.DateTimeField(
-        auto_now_add=True,
         verbose_name="Дата занятия",
     )
 
