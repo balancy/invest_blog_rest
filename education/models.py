@@ -32,6 +32,34 @@ class Mentor(models.Model):
         return f"{self.__class__.__name__} <{self.user}>"
 
 
+class Student(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.PROTECT,
+        verbose_name="Пользователь",
+    )
+
+    status = models.CharField(
+        max_length=200,
+        default="",
+        blank=True,
+        verbose_name="Статус",
+    )
+
+    bio = models.TextField(
+        default="",
+        blank=True,
+        verbose_name="Биография",
+    )
+
+    class Meta:
+        verbose_name = "Студент"
+        verbose_name_plural = "Студенты"
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.user}>"
+
+
 class Category(models.Model):
     title = models.CharField(
         max_length=150,
