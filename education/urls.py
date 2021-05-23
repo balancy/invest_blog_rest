@@ -3,4 +3,6 @@ from education import views
 
 urlpatterns = [
     path('', views.CategoriesList.as_view(), name="categories_list"),
+    path('courses/<int:course_id>/', views.CourseDetailView.as_view(),
+         name='course'),
 ]

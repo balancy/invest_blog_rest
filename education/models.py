@@ -133,6 +133,11 @@ class Lesson(models.Model):
         default="",
         verbose_name="Название",
     )
+    description = HTMLField(
+        default="",
+        blank=True,
+        verbose_name="Описание урока",
+    )
     text = HTMLField(
         default="",
         blank=True,

@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from education.models import Category, Course, Tag
 from education.utils import serialize_category, serialize_tag_with_count
@@ -18,13 +18,21 @@ def articles_list(request: HttpRequest):
     return render(request, "education/articles_list.html", context=context)
 
 
-class ListPageNameMixin:
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
+class CategoriesList(ListView):
+    model = Category
+    title = 'Список курсов'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['title'] = self.title
         return context
 
 
-class CategoriesList(ListPageNameMixin, ListView):
-    model = Category
-    title = 'Список курсов'
+class CourseDetailView(DetailView):
+    model = Course
+    pk_url_kwarg = 'course_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = kwargs['object'].title
+        return context
