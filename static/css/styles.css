@@ -1,0 +1,32 @@
+.main-container {
+    text-align: justify;
+}
+
+a {
+    color: #007d1b;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #58cc70;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.nav-brand {
+    margin: auto 18px auto 6px;
+}
+
+.white {
+    color: white;
+}
+
+.content-header {
+    color: #015c15;
+}
+
+.logo {
+    height: 30px;
+}
