@@ -1,9 +1,9 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from education.forms import CourseCreateForm
+from education.forms import CourseForm
 from education.models import Category, Course
 
 
@@ -27,14 +27,24 @@ class CourseDetailView(DetailView):
         return context
 
 
-@method_decorator(staff_member_required, name='dispatch')
-class CourseAddView(CreateView):
-    model = Course
-    form_class = CourseCreateForm
-    success_url = reverse_lazy('categories_list')
-    template_name_suffix = '_create_form'
-
+class CourseTitleMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Добавить курс'
+        context['title'] = self.title
         return context
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class CourseAddView(CourseTitleMixin, CreateView):
+    model = Course
+    form_class = CourseForm
+    title = 'Добавить курс'
+    success_url = reverse_lazy('categories_list')
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class CourseUpdateView(CourseTitleMixin, UpdateView):
+    model = Course
+    form_class = CourseForm
+    title = 'Обновить курс'
+    success_url = reverse_lazy('categories_list')
