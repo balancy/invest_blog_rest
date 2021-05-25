@@ -23,4 +23,8 @@
         {% endfor %}
     </div>
 
+    {% if user.is_staff %}
+        <a href="{% url 'add' %}" class="btn btn-outline-dark mt-3">Добавить курс</a>
+    {% endif %}
+
 {% endblock %}
