@@ -1,12 +1,16 @@
 # Invest blog
 
-Web-app representing an investment blog.
+![App image](https://i.ibb.co/BzxPhjH/investblog.png)
 
-App consists of 5 models: Author, Article, Category, Comment, Tag. Users of
-the app can be authors of articles, and they can also write comments. Every article 
-belongs to a certain category. Every article could have several tags. The main page 
-show the list of all posts divided by categories in its main section. In the side section
-there is a list of all tags with the count of articles that have them linked.
+Приложение представляет приближение к обучающему сайту по инвестициям.
+
+Приложение состоит из 7 моделей: Преподаватель, Ученик, Категория, Курс, Занятие, Расписание, Тэг.
+Каждый курс принадлежит к категории, и имеет определенное количество занятий. 
+У курса есть ответственный за него преподаватель, у занятий есть их кураторы. Каждое занятие имеет 
+определенные тэги. Модель расписание связывает учеников с определенными занятиями на определенное время.
+
+Можно просматривать список курсов и каждый курс в отдельности. Для администраторов ресурса
+есть возможность добавлять, редактировать и удалять курсы.
 
 ## Install
 
