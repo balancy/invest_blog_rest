@@ -1,7 +1,8 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, \
+    DeleteView
 
 from education.forms import CourseForm
 from education.models import Category, Course
@@ -48,3 +49,11 @@ class CourseUpdateView(CourseTitleMixin, UpdateView):
     form_class = CourseForm
     title = 'Обновить курс'
     success_url = reverse_lazy('categories_list')
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class CourseDeleteView(CourseTitleMixin, DeleteView):
+    model = Course
+    title = 'Удалить курс'
+    success_url = reverse_lazy('categories_list')
+    template_name_suffix = '_delete'

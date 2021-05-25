@@ -30,6 +30,7 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'course_update' course.id %}" class="btn btn-outline-dark mt-3">Обновить курс</a>
+    <a href="{% url 'course_update' course.id %}" class="btn btn-outline-success mt-3">Обновить курс</a>
+    <a href="{% url 'course_delete' course.id %}" class="btn btn-outline-danger mt-3">Удалить курс</a>
     <a href="{% url 'categories_list' %}" class="btn btn-outline-dark mt-3">Назад к курсам</a>
 {% endblock %}
