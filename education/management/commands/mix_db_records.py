@@ -1,25 +1,21 @@
 from django.core.management import BaseCommand
+from faker import Faker
 from mixer.backend.django import mixer
 
 from education.models import Category, Course, Mentor
 
+fake = Faker()
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        mentor = mixer.blend(
-            Mentor,
-            bio="Новая биография",
-            status="Огнерожденый",
-        )
-
-        category = Category.objects.first()
-
-        course = mixer.blend(
+        course = mixer.cycle(3).blend(
             Course,
-            category=category,
-            responsible=mentor,
-            title="Новый курс",
+            title=fake.word,
+            description=fake.text,
+            category__title=fake.word,
+            responsible__status=fake.sentence
         )
+
         print(course)
-        print(vars(course))
 
