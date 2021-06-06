@@ -4,12 +4,12 @@ from django.core.mail import send_mail
 
 
 @shared_task
-def send_mail_task():
+def send_mail_task(subject, message, from_mail, to_mail):
     with mail.get_connection() as connection:
         return send_mail(
-            'Sending email from celery',
-            'Here we go.',
-            'from@example.com',
-            ['balancy@gmail.com'],
+            subject,
+            message,
+            from_mail,
+            [to_mail],
             connection=connection,
         )
