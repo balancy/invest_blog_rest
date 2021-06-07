@@ -4,13 +4,22 @@
 
 Приложение представляет приближение к обучающему сайту по инвестициям.
 
-Приложение состоит из 7 моделей: Преподаватель, Ученик, Категория, Курс, Занятие, Расписание, Тэг.
-Каждый курс принадлежит к категории, и имеет определенное количество занятий. 
-У курса есть ответственный за него преподаватель, у занятий есть их кураторы. Каждое занятие имеет 
-определенные тэги. Модель расписание связывает учеников с определенными занятиями на определенное время.
+Приложение состоит из 7 моделей: Преподаватель, Ученик, Категория, Курс,
+Занятие, Расписание, Тэг. Каждый курс принадлежит к категории, и имеет 
+определенное количество занятий. У курса есть ответственный за него 
+преподаватель, у занятий есть их кураторы. Каждое занятие имеет определенные 
+тэги. Модель расписание связывает учеников с определенными занятиями на 
+определенное время.
 
-Можно просматривать список курсов и каждый курс в отдельности. Для администраторов ресурса
-есть возможность добавлять, редактировать и удалять курсы.
+Можно просматривать список курсов и каждый курс в отдельности. 
+Для администраторов ресурса есть возможность добавлять, редактировать и удалять 
+курсы.
+
+Добавлено тестирование и создание фейковых данных для БД.
+
+Добавлена контактная форма для отправки сообщений через очередь задач. Письмо
+отправляется администратору ресурса, а также отправляется уведомление 
+отправителю письма, что его сообщение отправлено.
 
 ## Install
 
@@ -46,6 +55,11 @@ pip install -r requirements.txt
 - `DEBUG` — debug mode
 - `SECRET_KEY` — project django secret key
 - `ALLOWED_HOSTS` — see [Django documentation](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
+- `EMAIL_HOST` = project email host (for sending emails)
+- `EMAIL_PORT` = project email port
+- `EMAIL_HOST_USER` = project admin email
+- `EMAIL_HOST_PASSWORD` = project admin email password
+- `EMAIL_USE_SSL` = does project use SSL?
 
 ## Launch
 
@@ -57,4 +71,19 @@ python3 manage.py migrate
 2. Run server
 ```console
 python3 manage.py runserver
+```
+
+3. Launch redis server and queue workers (for sending emails)
+
+They don't work in Windows, so if you have one, you need to launch them in 
+   emulated unix-OS (wsl or emulated ubuntu)
+
+Launch server in one terminal
+```console
+redis-server
+```
+
+Launch workers in another terminal
+```console
+celery -A invest_blog worker -l INFO
 ```

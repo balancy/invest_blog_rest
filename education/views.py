@@ -15,6 +15,7 @@ from education.forms import CourseForm, ContactForm
 from education.models import Category, Course
 from education.tasks import send_mail_task
 
+
 class CategoriesList(ListView):
     model = Category
     title = 'Список курсов'
@@ -70,7 +71,7 @@ class ContactFormView(CourseTitleMixin, FormView):
     form_class = ContactForm
     template_name = "education/contact.html"
     success_url = reverse_lazy('categories_list')
-    title = 'Отправить'
+    title = 'Напишите нам'
 
     def form_valid(self, form):
         support_mail = settings.EMAIL_HOST_USER

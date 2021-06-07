@@ -17,8 +17,8 @@ class CourseForm(FormPrettifyFieldsMixin, forms.ModelForm):
 
 
 class ContactForm(FormPrettifyFieldsMixin, forms.Form):
-    name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
-    message = forms.CharField(widget=forms.Textarea)
+    name = forms.CharField(required=True, label='ФИО')
+    email = forms.EmailField(required=True, label='Электронная почта')
+    subject = forms.CharField(required=True, label='Тема письма')
+    message = forms.CharField(widget=forms.Textarea, label='Сообщение')
 
