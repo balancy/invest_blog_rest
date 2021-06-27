@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from rest_framework.authtoken.models import Token
 from tinymce.models import HTMLField
 
 
@@ -202,4 +203,3 @@ class Schedule(models.Model):
     def __str__(self):
         return (f"{self.__class__.__name__} <{self.lesson}> <{self.student}> "
                 f"at {self.lesson_time}")
-

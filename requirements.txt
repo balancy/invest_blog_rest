@@ -14,6 +14,7 @@ django-celery-results==2.0.1
 django-filter==2.4.0
 django-tinymce==3.3.0
 djangorestframework==3.12.4
+djangorestframework-simplejwt==4.7.1
 factory-boy==3.2.0
 Faker==8.4.0
 iniconfig==1.1.1
@@ -25,6 +26,7 @@ packaging==20.9
 pluggy==0.13.1
 prompt-toolkit==3.0.18
 py==1.10.0
+PyJWT==2.1.0
 pyparsing==2.4.7
 pytest==6.2.4
 pytest-django==4.3.0

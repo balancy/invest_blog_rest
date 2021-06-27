@@ -1,8 +1,9 @@
-from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 
 from education.models import Category, Course, Lesson, Mentor
+from education.permissions import IsAdminUserOrReadOnlyPermission
 from education.serializers import (
     CategorySerializer,
     CourseSerializer,
@@ -11,7 +12,13 @@ from education.serializers import (
 )
 
 
-class LessonsViewSet(ModelViewSet):
+class IsAdminOrReadOnlyViewSet:
+    permission_classes = [
+        IsAdminUserOrReadOnlyPermission,
+    ]
+
+
+class LessonsViewSet(ModelViewSet, IsAdminOrReadOnlyViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
@@ -20,12 +27,12 @@ class LessonsViewSet(ModelViewSet):
     ordering_fields = ['title', 'id']
 
 
-class MentorsViewSet(ModelViewSet):
+class MentorsViewSet(ModelViewSet, IsAdminOrReadOnlyViewSet):
     queryset = Mentor.objects.all()
     serializer_class = MentorSerializer
 
 
-class CoursesViewSet(ModelViewSet):
+class CoursesViewSet(ModelViewSet, IsAdminOrReadOnlyViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
@@ -34,6 +41,6 @@ class CoursesViewSet(ModelViewSet):
     ordering_fields = ['title', 'id']
 
 
-class CategoriesViewSet(ModelViewSet):
+class CategoriesViewSet(ModelViewSet, IsAdminOrReadOnlyViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer

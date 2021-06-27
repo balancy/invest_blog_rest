@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_filters',
     'rest_framework',
+    'rest_framework_simplejwt',
     'tinymce',
 
     'education.apps.EducationConfig',
@@ -163,6 +164,13 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
 
 # REST
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS':
-        ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
 }
